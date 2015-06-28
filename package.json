@@ -1,0 +1,20 @@
+{
+  "name": "ReactBase",
+  "version": "1.0.0",
+  "description": "www",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samiskin/ReactBase.git"
+  },
+  "author": "Shiranka Miskin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/samiskin/ReactBase/issues"
+  },
+  "homepage": "https://github.com/samiskin/ReactBase"
+}
