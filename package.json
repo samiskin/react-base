@@ -1,9 +1,9 @@
 {
   "name": "ReactBase",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "www",
-  "main": "server.js",
   "scripts": {
+    "build": "webpack --config config/webpack.config.js --progress --profile --colors",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/server.js"
   },
@@ -16,5 +16,15 @@
   "bugs": {
     "url": "https://github.com/samiskin/ReactBase/issues"
   },
-  "homepage": "https://github.com/samiskin/ReactBase"
+  "homepage": "https://github.com/samiskin/ReactBase",
+  "dependencies": {
+    "babel-core": "^5.6.15",
+    "babel-loader": "^5.2.2",
+    "express": "^4.13.0",
+    "proxy-middleware": "^0.13.0",
+    "react": "^0.13.3",
+    "react-router": "^0.13.3",
+    "webpack": "^1.10.0",
+    "webpack-dev-server": "^1.10.0"
+  }
 }
