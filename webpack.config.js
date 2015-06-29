@@ -6,15 +6,12 @@ var pkg = require('./package.json');
 
 module.exports = {
   entry: [
-    'webpack-dev-server/client?http://localhost:3001',
-    'webpack/hot/dev-server',
     './src/app.js'
   ],
 
   output: {
     path: path.join(__dirname, 'src'),
     filename: 'bundle.js',
-    publicPath: '/assets/'
   },
 
   resolve: {
@@ -27,7 +24,7 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
+//    new webpack.HotModuleReplacementPlugin(),
     new webpack.ProvidePlugin({
       'React': 'react/addons'
     })
@@ -40,6 +37,8 @@ module.exports = {
       {test: /\.scss$/, loaders: ['style', 'css', 'sass']},
       {test: /\.css$/, loaders: ['style', 'css']}
     ]
-  }
+  },
+
+  devtool: "#inline-source-map"
 
 }

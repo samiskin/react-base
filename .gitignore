@@ -6,3 +6,5 @@ npm-debug.log
 *.swo
 *.swn
 *.swm
+
+src/bundle.js
