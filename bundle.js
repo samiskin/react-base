@@ -20453,7 +20453,7 @@
 	var Router = __webpack_require__(180);
 	var Route = Router.Route;
 	
-	var routes = React.createElement(Route, { path: '/ReactBase', handler: Canvas });
+	var routes = React.createElement(Route, { path: '/ReactBase/', handler: Canvas });
 	
 	module.exports = Router.create({
 	    routes: routes,
