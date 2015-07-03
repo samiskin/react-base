@@ -6,7 +6,7 @@ var Router = require('react-router');
 var Route = Router.Route;
 
 var routes = (
-    <Route path="/" handler={Canvas}>
+    <Route path="/ReactBase" handler={Canvas}>
     </Route>
 
 );
