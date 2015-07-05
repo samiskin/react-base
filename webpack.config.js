@@ -6,12 +6,14 @@ var pkg = require('./package.json');
 
 module.exports = {
   entry: [
+    'webpack-dev-server/client?http://localhost:8080',
+    'webpack/hot/dev-server',
     './src/app.js'
   ],
 
   output: {
     path: __dirname,
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
 
   resolve: {
@@ -24,7 +26,7 @@ module.exports = {
   },
 
   plugins: [
-//    new webpack.HotModuleReplacementPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
     new webpack.ProvidePlugin({
       'React': 'react/addons'
     })
