@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "www",
   "scripts": {
-    "build": "webpack --config config/webpack.config.js --progress --profile --colors",
+    "build": "webpack",
     "start": "webpack-dev-server"
   },
   "repository": {
