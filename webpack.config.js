@@ -12,14 +12,14 @@ module.exports = {
   ],
 
   output: {
-    path: "./",
+    path: __dirname,
     filename: 'bundle.js',
   },
 
   resolve: {
     root: path.join(__dirname, 'src'),
-    modulesDirectories: ['node_modules', 'src'],
-    extensions: ['', '.js', '.jsx'],
+    modulesDirectories: ['node_modules','components', 'src', 'lib'],
+    extensions: ['', '.js'],
     alias: {
       'React': 'react/addons'
     }
@@ -28,16 +28,17 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.ProvidePlugin({
-      'React': 'react/addons'
+      'React': 'react/addons',
+      'keyMirror': 'keymirror'
     })
   ],
 
   module: {
     loaders: [
-      {test: /\.jsx?$/, loaders: ['react-hot', 'babel?stage=0'], exclude: /node_modules/},
+      {test: /\.jsx?$/, loaders: ['react-hot', 'babel?cacheDirectory&blacklist[]=validation.react&optional[]=es7.classProperties'], exclude: /node_modules/},
       {test: /\.json$/, loaders: ['json']},
-      {test: /\.scss$/, loaders: ['style', 'css', 'sass']},
-      {test: /\.css$/, loaders: ['style', 'css']}
+      {test: /\.scss$/, loaders: ['style', 'css', 'postcss', 'sass']},
+      {test: /\.css$/, loaders: ['style', 'css', 'postcss']}
     ]
   },
 
