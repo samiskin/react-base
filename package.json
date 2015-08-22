@@ -4,7 +4,7 @@
   "description": "www",
   "scripts": {
     "build": "webpack",
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server --inline --history-api-fallback"
   },
   "repository": {
     "type": "git",
