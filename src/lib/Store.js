@@ -1,26 +1,51 @@
-import { EventEmitter } from 'events';
+import _ from 'lodash';
 import Dispatcher from 'Dispatcher';
+import {compose, createStore, applyMiddleware} from 'redux';
+import HelloWorldStore from 'stores/HelloWorldStore';
+import {devTools} from 'redux-devtools';
 
-class Store extends EventEmitter {
-   constructor() {
-     super();
-     Dispatcher.register(this.update.bind(this));
-   }
 
-   update(payload) {
-   }
+function getStoresReducer() {
+  let StoreMap = {
+    helloWorld: HelloWorldStore
+  }
 
-   emitChange() {
-     this.emit('change');
-   }
+  return (state, action) => {
+    let newState = {};
 
-   subscribe(callback) {
-     this.on('change', callback);
-   }
+    _.forEach(StoreMap, (store, key) => {
+      let value = store ?
+        store.reduce.bind(store)(state[key], action) : null;
 
-   unsubscribe(callback) {
-     this.removeListener('change', callback);
-   }
+      newState[key] = value || state[key];
+    });
+
+    return newState;
+  }
 }
 
-export default Store;
+class Store {
+   constructor() {
+     this.store = compose(
+       devTools()
+     )(createStore)(this.reducer);
+   }
+
+   getState() {
+     return this.store.getState();
+   }
+
+  subscribe(listener) {
+    return this.store.subscribe(listener);
+  }
+
+  dispatch(action) {
+    this.store.dispatch(action);
+  }
+
+  reducer(state = {}, action) {
+    return getStoresReducer()(state, action);
+  }
+}
+
+export default new Store();

@@ -1,16 +1,11 @@
 import Dispatcher from 'Dispatcher';
 
-var Actions = {
+export const CLICKED_BUTTON = Symbol();
+
+class HelloWorldActions {
   clickButton() {
-    Dispatcher.dispatch(Dispatches.CLICKED_BUTTON);
+    Dispatcher.dispatch({type: CLICKED_BUTTON});
   }
 }
 
-var Dispatches = keyMirror({
-    CLICKED_BUTTON: null
-});
-
-export {
-  Dispatches,
-  Actions
-};
+export default new HelloWorldActions();

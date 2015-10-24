@@ -1,20 +1,24 @@
-
+import _ from 'lodash';
+import { CLICKED_BUTTON } from 'actions/HelloWorldActions';
 import Store from 'Store';
-import { Actions } from 'actions/HelloWorldActions';
 
-var timesClicked = 0;
-class HelloWorldStore extends Store {
+class HelloWorldStore {
 
-  getTimesClicked() {
-    return timesClicked;
+  getState() {
+    console.log(Store.getState());
+    return Store.getState().helloWorld;
   }
 
-  update(payload) {
-    switch (payload.type) {
-      case Actions.CLICKED_BUTTON:
-        timesClicked++;
-        this.emitChange();
-        break;
+  getTimesClicked() {
+    return this.getState().timesClicked;
+  }
+
+  reduce(state = {timesClicked: 0}, action) {
+    switch (action.type) {
+      case CLICKED_BUTTON:
+        return _.assign({}, state, {timesClicked: state.timesClicked + 1});
+      default:
+        return state;
     }
   }
 

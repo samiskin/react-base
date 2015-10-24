@@ -1,8 +1,8 @@
 'use strict';
 
-var Component = require('Component');
-var HelloWorldActions = require('actions/HelloWorldActions').Actions;
-var HelloWorldStore = require('stores/HelloWorldStore');
+import Component from 'Component';
+import HelloWorldActions from 'actions/HelloWorldActions';
+import HelloWorldStore from 'stores/HelloWorldStore';
 
 require('./styles/HelloWorld.scss');
 
@@ -17,13 +17,7 @@ export default class HelloWorld extends Component{
     buttonText: 'Default Text'
   }
 
-  static stores = [
-    HelloWorldStore
-  ]
-
-  state = this.updatedState();
-
-  updatedState() {
+  syncState() {
     return {
       clicked: HelloWorldStore.getTimesClicked()
     };

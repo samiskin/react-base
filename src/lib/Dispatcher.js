@@ -1,7 +1,10 @@
-import Flux from 'flux';
+import Store from 'Store';
+class Dispatcher {
 
-class Dispatcher extends Flux.Dispatcher {
-  // Use the dispatch(contents) function  
+  dispatch(payload) {
+    Store.dispatch(payload);
+  }
+  
 }
 
 export default new Dispatcher();
