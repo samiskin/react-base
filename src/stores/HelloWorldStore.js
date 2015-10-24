@@ -5,7 +5,6 @@ import Store from 'Store';
 class HelloWorldStore {
 
   getState() {
-    console.log(Store.getState());
     return Store.getState().helloWorld;
   }
 

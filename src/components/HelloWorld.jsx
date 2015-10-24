@@ -1,10 +1,11 @@
 'use strict';
 
+import React from 'react';
 import Component from 'Component';
 import HelloWorldActions from 'actions/HelloWorldActions';
 import HelloWorldStore from 'stores/HelloWorldStore';
 
-require('./styles/HelloWorld.scss');
+import styles from './styles/HelloWorld.scss';
 
 export default class HelloWorld extends Component{
 
@@ -31,7 +32,7 @@ export default class HelloWorld extends Component{
 
   render() {
     return (
-      <div className="HelloWorld" >
+      <div className={styles.base} >
         <h1> Hello World </h1>
         <button onClick={this.clickHandler}> {this.props.buttonText} </button>
         {this.state.clicked}

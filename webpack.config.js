@@ -20,15 +20,11 @@ module.exports = {
     root: path.join(__dirname, 'src'),
     modulesDirectories: ['node_modules','components', 'src', 'lib'],
     extensions: ['', '.js'],
-    alias: {
-      'React': 'react/addons'
-    }
   },
 
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.ProvidePlugin({
-      'React': 'react/addons',
       'keyMirror': 'keymirror'
     })
   ],
@@ -37,7 +33,7 @@ module.exports = {
     loaders: [
       {test: /\.jsx?$/, loaders: ['react-hot', 'babel?cacheDirectory&blacklist[]=validation.react&optional[]=es7.classProperties'], exclude: /node_modules/},
       {test: /\.json$/, loaders: ['json']},
-      {test: /\.scss$/, loaders: ['style', 'css', 'postcss', 'sass']},
+      {test: /\.scss$/, loaders: ['style', 'css-loader?modules', 'postcss', 'sass']},
       {test: /\.css$/, loaders: ['style', 'css', 'postcss']}
     ]
   },
