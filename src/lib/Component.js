@@ -4,6 +4,22 @@ import Store from 'Store';
 import shallowEqual from 'utils/shallowEqual';
 
 
+
+/*
+   The Base class of every React Component
+
+   Components should obtain all their store data using a syncState() method.
+   ex:
+    syncState() {
+      return {
+        users: UserStore.getUsers()
+      };
+    }
+
+  Whenever the store changes, this base class will check to see if any
+  of those variables have changed and will rerender if so.
+ */
+
 export default class Component extends React.Component {
 
   constructor(props) {
