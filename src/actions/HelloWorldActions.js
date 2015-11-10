@@ -1,6 +1,6 @@
 import Dispatcher from 'Dispatcher';
 
-export const CLICKED_BUTTON = Symbol();
+export const CLICKED_BUTTON = Symbol("CLICKED_BUTTON");
 
 class HelloWorldActions {
   clickButton() {
