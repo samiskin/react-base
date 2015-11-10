@@ -36,66 +36,19 @@ let stateStoreMap = {
 
 
 
-
-let invertedMap = _.transform(stateStoreMap, (map, store, prop) => {
-  return map.set(store, prop);
-}, new Map());
-
-let waitingSet = new Set();
-let storeMap = new Map();
-_.forEach(stateStoreMap, (store) => waitingSet.add(store));
-
-let assignStore = (store) => {
-  if (storeMap.has(store)) return;
-  if (store === undefined || !waitingSet.has(store)) {
-    throw new Error("Undefined store, check for circular dependencies in storeDependencies");
-  }
-
-  waitingSet.delete(store);
-  if (Array.isArray(store.storeDependencies)) {
-    store.storeDependencies.forEach((dependency) => assignStore(dependency));
-  }
-  storeMap.set(store, invertedMap.get(store));
-};
-
-while (waitingSet.size > 0) {
-  let store = waitingSet.entries().next().value[0];
-  assignStore(store);
-}
-
-let storesByProp = {};
-for (let entry of storeMap) {
-  storesByProp[entry[1]] = entry[0];
-}
-
 // This function takes the map of state properties to stores and
 // creates a Redux reducer from it.  This returns a function because
 // in order to allow both a reducer and accessors in a single store
 // class, we end up having a circular dependency.  this file needs
 // to reference the reducers in the store classes, but the store
 // classes need to reference this file for their accessors.
-let partiallyReducedState = null;
-function reduceFromStores(state, action) {
-  let newState = {};
-  partiallyReducedState = _.assign({}, state);
-  let storeMap = storesByProp;
-
-  _.forEach(storeMap, (store, key) => {
-    if (!store.reduce) throw new Error(`${store.constructor.name} must provide a reduce function`);
-    let value = store.reduce.bind(store)(state[key], action);
-    if (!value) throw new Error(`${store.constructor.name}.reduce must provide a default value`);
-    newState[key] = value || state[key]; // Default to old value
-    partiallyReducedState[key] = newState[key];
-  });
-  partiallyReducedState = null;
-
-  return newState;
-}
 
 class Store {
    constructor() {
+     this.initializeStoreMap();
+     this.partiallyReducedState = null;
      let createStoreWithMiddleware = applyMiddleware(this.logDispatches)(createStore);
-     this.store = createStoreWithMiddleware(this.reducer);
+     this.store = createStoreWithMiddleware(this.reducer.bind(this));
    }
 
    logDispatches() {
@@ -105,9 +58,56 @@ class Store {
      };
    }
 
+    initializeStoreMap() {
+      let invertedMap = _.transform(stateStoreMap, (map, store, prop) => {
+        return map.set(store, prop);
+      }, new Map());
+
+      let waitingSet = new Set();
+      this.storeMap = new Map();
+      _.forEach(stateStoreMap, (store) => waitingSet.add(store));
+
+      let assignStore = (store) => {
+        if (this.storeMap.has(store)) return;
+        if (store === undefined || !waitingSet.has(store)) {
+          throw new Error("Undefined store, check for circular dependencies in storeDependencies");
+        }
+
+        waitingSet.delete(store);
+        if (Array.isArray(store.storeDependencies)) {
+          store.storeDependencies.forEach((dependency) => assignStore(dependency));
+        }
+        this.storeMap.set(store, invertedMap.get(store));
+      };
+
+      while (waitingSet.size > 0) {
+        let store = waitingSet.entries().next().value[0];
+        assignStore(store);
+      }
+    }
+
+    reduceFromStores(state, action) {
+      let newState = {};
+      this.partiallyReducedState = _.assign({}, state);
+
+      for (let entry of this.storeMap) {
+        let key = entry[1];
+        let store = entry[0];
+
+        if (!store.reduce) throw new Error(`${store.constructor.name} must provide a reduce function`);
+        let value = store.reduce.bind(store)(state[key], action);
+        if (!value) throw new Error(`${store.constructor.name}.reduce must provide a default value`);
+        newState[key] = value || state[key]; // Default to old value
+        this.partiallyReducedState[key] = newState[key];
+      }
+      this.partiallyReducedState = null;
+
+      return newState;
+    }
+
 
   getState() {
-    return partiallyReducedState || this.store.getState();
+    return this.partiallyReducedState || this.store.getState();
   }
 
   subscribe(listener) {
@@ -119,7 +119,7 @@ class Store {
   }
 
   reducer(state = {}, action) {
-    return reduceFromStores(state, action);
+    return this.reduceFromStores(state, action);
   }
 }
 
