@@ -28,13 +28,6 @@ let stateStoreMap = {
 
 
 
-// This function takes the map of state properties to stores and
-// creates a Redux reducer from it.  This returns a function because
-// in order to allow both a reducer and accessors in a single store
-// class, we end up having a circular dependency.  this file needs
-// to reference the reducers in the store classes, but the store
-// classes need to reference this file for their accessors.
-
 class Store {
    constructor() {
      this.initializeStoreMap();
