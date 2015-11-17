@@ -19,14 +19,6 @@ import {devTools} from 'redux-devtools';
       };
     }
 
-    Changing the order of the properties changes which property
-    updates first, so for example if a ScoreStore needs access
-    to the updated data in UserStore, simply have:
-
-    return {
-      users: UserStore.getUsers(),
-      scores: ScoreStore.getScores()
-    }
  */
 
 let stateStoreMap = {
