@@ -10,8 +10,8 @@ var postcssImport = require('postcss-import');
 module.exports = {
   entry: [
     'webpack-dev-server/client?http://localhost:8080',
-    'webpack/hot/dev-server',
-    './src/app.js'
+    'webpack/hot/only-dev-server',
+    './src/app'
   ],
 
   output: {
@@ -42,7 +42,7 @@ module.exports = {
 
   module: {
     loaders: [
-      {test: /\.jsx?$/, loader: 'babel', exclude: /node_modules/},
+      {test: /\.jsx?$/, loaders: ['react-hot', 'babel'], exclude: /node_modules/},
       {test: /\.json$/, loader: 'json'},
       {test: /\.css$/, loaders: ['style', 'css?modules', 'postcss']}
     ]
