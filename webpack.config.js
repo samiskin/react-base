@@ -3,6 +3,9 @@
 var path = require('path');
 var webpack = require('webpack');
 var pkg = require('./package.json');
+var autoprefixer = require('autoprefixer');
+var precss = require('precss');
+var postcssImport = require('postcss-import');
 
 module.exports = {
   entry: [
@@ -23,18 +26,25 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.ProvidePlugin({
-      'keyMirror': 'keymirror'
-    })
+    new webpack.HotModuleReplacementPlugin()
   ],
+
+  postcss: function (webpack) {
+    return [
+      postcssImport({
+        addDependencyTo: webpack,
+        path: '/'
+      }),
+      autoprefixer,
+      precss
+    ];
+  },
 
   module: {
     loaders: [
-      {test: /\.jsx?$/, loaders: ['react-hot', 'babel?cacheDirectory&blacklist[]=validation.react&optional[]=es7.classProperties'], exclude: /node_modules/},
-      {test: /\.json$/, loaders: ['json']},
-      {test: /\.scss$/, loaders: ['style', 'css-loader?modules', 'postcss', 'sass']},
-      {test: /\.css$/, loaders: ['style', 'css', 'postcss']}
+      {test: /\.jsx?$/, loader: 'babel', exclude: /node_modules/},
+      {test: /\.json$/, loader: 'json'},
+      {test: /\.css$/, loaders: ['style', 'css?modules', 'postcss']}
     ]
   },
 

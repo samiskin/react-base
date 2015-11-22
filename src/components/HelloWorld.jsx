@@ -5,7 +5,7 @@ import Component from 'Component';
 import HelloWorldActions from 'actions/HelloWorldActions';
 import HelloWorldStore from 'stores/HelloWorldStore';
 
-import styles from './styles/HelloWorld.scss';
+import styles from './styles/HelloWorld.css';
 
 export default class HelloWorld extends Component{
 
