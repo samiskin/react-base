@@ -2,7 +2,6 @@ import _ from 'lodash';
 import {createStore, applyMiddleware} from 'redux';
 import createLogger from 'redux-logger';
 import thunk from 'redux-thunk';
-import promise from 'redux-promise';
 import HelloWorldStore from 'stores/HelloWorldStore';
 import ByeWorldStore from 'stores/ByeWorldStore';
 // import {devTools} from 'redux-devtools';
@@ -36,7 +35,7 @@ class Store {
       duration: true,
       actionTransformer: (action) => _.assign({}, action, {type: action.type.toString()})
     });
-    let createStoreWithMiddleware = applyMiddleware(thunk, promise, logger)(createStore);
+    let createStoreWithMiddleware = applyMiddleware(thunk, logger)(createStore);
     this.store = createStoreWithMiddleware(this.reducer.bind(this));
   }
 
