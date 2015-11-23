@@ -7,7 +7,7 @@ import HelloWorldStore from 'stores/HelloWorldStore';
 
 import styles from './styles/HelloWorld.css';
 
-export default class HelloWorld extends Component{
+export default class HelloWorld extends Component {
 
 
   static propTypes = {
@@ -26,8 +26,8 @@ export default class HelloWorld extends Component{
 
 
   clickHandler() {
-      console.log("Clicked!");
-      HelloWorldActions.clickButton();
+    console.log('Clicked!');
+    HelloWorldActions.clickButton();
   }
 
   render() {

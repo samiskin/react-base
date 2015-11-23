@@ -1,11 +1,11 @@
 'use strict';
 
-var path = require('path');
-var webpack = require('webpack');
-var pkg = require('./package.json');
-var autoprefixer = require('autoprefixer');
-var precss = require('precss');
-var postcssImport = require('postcss-import');
+const path = require('path');
+const webpack = require('webpack');
+// var pkg = require('./package.json');
+const autoprefixer = require('autoprefixer');
+const precss = require('precss');
+const postcssImport = require('postcss-import');
 
 module.exports = {
   entry: [
@@ -21,7 +21,7 @@ module.exports = {
 
   resolve: {
     root: path.join(__dirname, 'src'),
-    modulesDirectories: ['node_modules','components', 'src', 'lib'],
+    modulesDirectories: ['node_modules', 'components', 'src', 'lib'],
     extensions: ['', '.js'],
   },
 
@@ -29,10 +29,10 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin()
   ],
 
-  postcss: function (webpack) {
+  postcss: function(webpackDependency) {
     return [
       postcssImport({
-        addDependencyTo: webpack,
+        addDependencyTo: webpackDependency,
         path: '/'
       }),
       autoprefixer,
@@ -48,6 +48,6 @@ module.exports = {
     ]
   },
 
-  devtool: "#inline-source-map"
+  devtool: '#inline-source-map'
 
-}
+};

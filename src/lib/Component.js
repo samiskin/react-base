@@ -3,8 +3,6 @@ import React from 'react';
 import Store from 'Store';
 import shallowEqual from 'utils/shallowEqual';
 
-
-
 /*
    The Base class of every React Component
 
@@ -28,14 +26,15 @@ export default class Component extends React.Component {
     Store.subscribe(this._update.bind(this));
   }
 
-  _update(payload) {
-    this.setState(this.syncState() || {});
-  }
-
   shouldComponentUpdate(nextProps, nextState) {
     return !shallowEqual(this.props, nextProps) ||
            !shallowEqual(this.state, nextState);
   }
+
+  _update(payload) { // eslint-disable-line
+    this.setState(this.syncState() || {});
+  }
+
 
   syncState() {
   }

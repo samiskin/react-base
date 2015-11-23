@@ -14,10 +14,10 @@ class HelloWorldStore {
 
   reduce(state = {timesClicked: 0}, action) {
     switch (action.type) {
-      case CLICKED_BUTTON:
-        return _.assign({}, state, {timesClicked: state.timesClicked + 1});
-      default:
-        return state;
+    case CLICKED_BUTTON:
+      return _.assign({}, state, {timesClicked: state.timesClicked + 1});
+    default:
+      return state;
     }
   }
 
