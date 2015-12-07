@@ -23,7 +23,11 @@ export default class Component extends React.Component {
   constructor(props) {
     super(props);
     this.state = this.syncState() || {};
-    Store.subscribe(this._update.bind(this));
+    this.unsubscribe = Store.subscribe(this._update.bind(this));
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
   }
 
   shouldComponentUpdate(nextProps, nextState) {
