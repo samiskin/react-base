@@ -2,8 +2,6 @@ import _ from 'lodash';
 import {createStore, applyMiddleware} from 'redux';
 import createLogger from 'redux-logger';
 import thunk from 'redux-thunk';
-import HelloWorldStore from 'stores/HelloWorldStore';
-import ByeWorldStore from 'stores/ByeWorldStore';
 // import {devTools} from 'redux-devtools';
 
 /*
@@ -22,8 +20,6 @@ import ByeWorldStore from 'stores/ByeWorldStore';
  */
 
 let stateStoreMap = {
-  byeWorld: ByeWorldStore,
-  helloWorld: HelloWorldStore
 };
 
 class Store {
