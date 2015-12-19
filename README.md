@@ -1,5 +1,5 @@
 # ReactBase
-A base to start off developing a webpage in React using ES6 and Redux.  This provides the basic structures needed to have the developer experience that I personally prefer the most.
+A base to start off developing a webpage in React using ES6 and Redux.  This provides the basic structures needed to have the developer experience that I personally prefer the most.  The `example` branch shows how some of the `lib/` classes are used.
 
 ## Installation
 
