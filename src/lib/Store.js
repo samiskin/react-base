@@ -9,14 +9,12 @@ let logger = createLogger({
   duration: true
 });
 
-let finalCreateStore = compose(
+let store = compose(
   fluxEnhancer({
 
 
   }),
   applyMiddleware(thunk, logger)
-)(createStore);
-
-let store = finalCreateStore(() => {});
+)(createStore)();
 
 export default store;
