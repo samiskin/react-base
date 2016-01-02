@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "www",
   "scripts": {
-    "build": "./node_modules/.bin/webpack ./",
+    "build": "./node_modules/.bin/webpack",
     "start": "node server.js",
     "lint": "./node_modules/.bin/eslint ./"
   },
