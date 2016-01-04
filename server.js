@@ -1,18 +1,28 @@
 /* eslint-disable */
-const webpack = require('webpack');
-const WebpackDevServer = require('webpack-dev-server');
-const config = require('./webpack.config');
+var config = require('./webpack.config');
+var express = require('express');
+var path = require('path');
+var webpack = require('webpack');
 
-const PORT = 8080;
+var app = express();
+var compiler = webpack(config);
 
-new WebpackDevServer(webpack(config), {
-  publicPath: config.output.publicPath,
-  hot: true,
-  historyApiFallback: true
-}).listen(PORT, 'localhost', function(err, result) {
+app.use(require('webpack-dev-middleware')(compiler, {
+  noInfo: true,
+  publicPath: config.output.publicPath
+}));
+
+app.use(require('webpack-hot-middleware')(compiler));
+
+app.get('*', function(req, res) {
+  res.sendFile(path.resolve(__dirname, './index.html'));
+});
+
+app.listen(8080, 'localhost', function(err) {
   if (err) {
     console.log(err);
+    return;
   }
 
-  console.log(`Listening at localhost:${PORT}`);
+  console.log('Listening at http://localhost:8080');
 });
