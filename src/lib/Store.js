@@ -19,35 +19,38 @@ let store = compose(
   applyMiddleware(thunk, logger)
 )(createStore)();
 
-window.store = store;
-
 export default store;
-
 
 
 export function connect(mapStateToProps) {
 
   return (WrappedComponent) => {
     class Connect extends React.Component {
+
+      constructor(props) {
+        super(props);
+        this.store = store;
+        this.state = mapStateToProps(store.getState());
+        this.unsubscribe = store.subscribe(() => {
+          this.setState(mapStateToProps(this.store.getState()));
+        });
+      }
+
+      computeMergedProps() {
+        return {
+          ...this.props,
+          ...this.state
+        };
+      }
+
       render() {
-        return createElement(WrappedComponent, this.props);
+        return createElement(WrappedComponent, this.computeMergedProps());
       }
     }
+
+    Connect.displayName = `Connect(${WrappedComponent.displayName})`;
 
     return Connect;
   }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

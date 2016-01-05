@@ -6,7 +6,7 @@ import Button from 'Button.jsx';
 export default class App extends Component{
   render() {
     return (
-      <div> Hello World <Button text={'wat'}/></div>
+      <div> Hello World <Button /></div>
     );
   }
 }

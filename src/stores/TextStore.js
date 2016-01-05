@@ -8,7 +8,12 @@ class TextStore {
   }
 
   reduce(state = 'Wat', action) {
-    return state;
+    switch(action.type) {
+      case 'CHANGE':
+        return action.data;
+      default:
+        return state;
+    }
   }
 
 }
