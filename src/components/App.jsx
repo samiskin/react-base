@@ -1,12 +1,14 @@
 
 import React from 'react';
-import Component from 'Component';
-import Button from 'Button.jsx';
+import { Provider } from 'react-redux';
+import Store from 'Store';
 
-export default class App extends Component{
+export default class App extends React.Component{
   render() {
     return (
-      <div> Hello World <Button /></div>
+      <Provider store={Store}>
+        <div> Hello World </div>
+      </Provider>
     );
   }
 }
