@@ -2,7 +2,6 @@ import { compose, createStore, applyMiddleware } from 'redux';
 import createLogger from 'redux-logger';
 import thunk from 'redux-thunk';
 import { fluxEnhancer } from 'redux-flux-store';
-import TextStore from 'stores/TextStore';
 import { createElement } from 'react';
 
 let logger = createLogger({
@@ -12,7 +11,7 @@ let logger = createLogger({
 
 let store = compose(
   fluxEnhancer({
-    text: TextStore
+
   }),
   applyMiddleware(thunk, logger)
 )(createStore)();
