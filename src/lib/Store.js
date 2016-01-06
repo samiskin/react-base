@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 import { fluxEnhancer } from 'redux-flux-store';
 import TextStore from 'stores/TextStore';
 import { createElement } from 'react';
+import shallowEqual from 'utils/shallowEqual';
 // import {devTools} from 'redux-devtools';
 
 let logger = createLogger({
@@ -13,8 +14,7 @@ let logger = createLogger({
 
 let store = compose(
   fluxEnhancer({
-    text: TextStore,
-    hah: TextStore
+    text: TextStore
   }),
   applyMiddleware(thunk, logger)
 )(createStore)();
@@ -36,11 +36,19 @@ export function connect(mapStateToProps) {
         });
       }
 
+      shouldComponentUpdate(nextProps, nextState) {
+        return !shallowEqual(this.props, nextProps) || !shallowEqual(this.state, nextState);
+      }
+
       computeMergedProps() {
         return {
           ...this.props,
           ...this.state
         };
+      }
+
+      componentWillUnmount() {
+        this.unsubscribe();
       }
 
       render() {
