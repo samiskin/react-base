@@ -1,12 +1,27 @@
 
 import React from 'react';
-import Component from 'Component';
 import Button from 'Button.jsx';
+import DevTools from 'DevTools.jsx';
+import Store from 'Store';
+import css from './styles/App.css';
 
-export default class App extends Component{
+export default class App extends React.Component {
+
+  static childContextTypes = {
+    store: React.PropTypes.object.isRequired
+  }
+
+  getChildContext() {
+    return { store: Store };
+  }
+
   render() {
+    console.log(css);
     return (
-      <div> Hello World <Button /></div>
+      <div>
+        <div className={css.text}> Hello World <Button /></div>
+        <DevTools />
+      </div>
     );
   }
 }

@@ -5,7 +5,9 @@ import { fluxEnhancer } from 'redux-flux-store';
 import TextStore from 'stores/TextStore';
 import { createElement } from 'react';
 import shallowEqual from 'utils/shallowEqual';
+import DevTools from 'DevTools.jsx';
 // import {devTools} from 'redux-devtools';
+
 
 let logger = createLogger({
   level: 'info',
@@ -16,50 +18,13 @@ let store = compose(
   fluxEnhancer({
     text: TextStore
   }),
-  applyMiddleware(thunk, logger)
+  applyMiddleware(thunk, logger),
+  DevTools.instrument()
 )(createStore)();
+
+global['__redux_store__'] = store;
 
 export default store;
 
+export { connect } from 'react-redux';
 
-export function connect(mapStateToProps) {
-
-  return (WrappedComponent) => {
-    class Connect extends React.Component {
-
-      constructor(props) {
-        super(props);
-        this.store = store;
-        this.state = mapStateToProps(store.getState());
-        this.unsubscribe = store.subscribe(() => {
-          this.setState(mapStateToProps(this.store.getState()));
-        });
-      }
-
-      shouldComponentUpdate(nextProps, nextState) {
-        return !shallowEqual(this.props, nextProps) ||
-               !shallowEqual(this.state, nextState);
-      }
-
-      computeMergedProps() {
-        return {
-          ...this.props,
-          ...this.state
-        };
-      }
-
-      componentWillUnmount() {
-        this.unsubscribe();
-      }
-
-      render() {
-        return createElement(WrappedComponent, this.computeMergedProps());
-      }
-    }
-
-    Connect.displayName = `Connect(${WrappedComponent.displayName})`;
-
-    return Connect;
-  }
-
-}

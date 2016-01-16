@@ -4,12 +4,10 @@ import TextStore from 'stores/TextStore';
 
 class Button extends React.Component {
   static propTypes = {
-    text: React.PropTypes.string,
-    color: React.PropTypes.string
+    text: React.PropTypes.string
   }
 
   render() {
-
     return (
       <button> {this.props.text} </button>
     );

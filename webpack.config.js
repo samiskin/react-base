@@ -2,6 +2,7 @@
 
 var path = require('path');
 var webpack = require('webpack');
+var postcssImport = require('postcss-import');
 
 module.exports = {
   entry: [
@@ -59,7 +60,7 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+        'NODE_ENV': JSON.stringify('development')
       },
       __DEV__: process.env.NODE_ENV === 'development'
     }),
@@ -67,12 +68,16 @@ module.exports = {
     new webpack.NoErrorsPlugin()
   ],
 
-  postcss: [
-    require('autoprefixer'),
-    require('postcss-color-rgba-fallback'),
-    require('postcss-focus'),
-    require('postcss-hexrgba'),
-    require('postcss-opacity'),
-    require('postcss-nested')
-  ]
+  postcss: function (webpack) {
+    return [
+      require('autoprefixer'),
+      postcssImport({path: ['src/styles', 'src']}),
+      require('postcss-cssnext'),
+      require('postcss-color-rgba-fallback'),
+      require('postcss-focus'),
+      require('postcss-hexrgba'),
+      require('postcss-opacity'),
+      require('postcss-nested')
+    ];
+  }
 };
