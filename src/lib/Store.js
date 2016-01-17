@@ -1,5 +1,4 @@
 import createLogger from 'redux-logger';
-import shallowEqual from 'utils/shallowEqual';
 import thunk from 'redux-thunk';
 import { compose, createStore, applyMiddleware } from 'redux';
 import { createElement } from 'react';
