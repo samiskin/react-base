@@ -4,6 +4,15 @@ var path = require('path');
 var webpack = require('webpack');
 var postcssImport = require('postcss-import');
 
+var NODE_ENV = process.env.NODE_ENV;
+
+var env = {
+  production: NODE_ENV === 'production',
+  staging: NODE_ENV === 'staging',
+  test: NODE_ENV === 'test',
+  development: NODE_ENV === 'development' || typeof NODE_ENV === 'undefined'
+};
+
 module.exports = {
 
   entry: [
@@ -60,5 +69,14 @@ module.exports = {
     require('postcss-hexrgba'),
     require('postcss-opacity'),
     require('postcss-nested')
+  ],
+
+  plugins: [
+     new webpack.DefinePlugin({
+      __DEV__: env.development,
+      __STAGING__: env.staging,
+      __PRODUCTION__: env.production,
+      __CURRENT_ENV__: '\'' + (NODE_ENV) + '\''
+    })
   ]
 };

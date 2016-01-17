@@ -18,8 +18,9 @@ export default class App extends React.Component {
     let DevTools = null;
     if (__DEV__) {
       let DevToolsComponent = require('DevTools.jsx').default;
-      DevTools = <DevTools />;
+      DevTools = <DevToolsComponent />;
     }
+
     return (
       <div>
         <div className={css.text}> Hello World <Button /></div>
