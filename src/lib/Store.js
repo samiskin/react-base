@@ -5,7 +5,6 @@ import { fluxEnhancer } from 'redux-flux-store';
 import TextStore from 'stores/TextStore';
 import { createElement } from 'react';
 import shallowEqual from 'utils/shallowEqual';
-import DevTools from 'DevTools.jsx';
 // import {devTools} from 'redux-devtools';
 
 
@@ -19,7 +18,7 @@ let store = compose(
     text: TextStore
   }),
   applyMiddleware(thunk, logger),
-  DevTools.instrument()
+  (() => __DEV__ ? require('DevTools.jsx').default.instrument() : (p) => p)()
 )(createStore)();
 
 global['__redux_store__'] = store;

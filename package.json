@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "www",
   "scripts": {
-    "build": "./node_modules/.bin/webpack",
+    "build": "NODE_ENV=production webpack --config ./webpack.config.production.js",
     "start": "node server.js",
     "lint": "./node_modules/.bin/eslint ./"
   },
@@ -18,18 +18,18 @@
   },
   "homepage": "https://github.com/samiskin/ReactBase",
   "dependencies": {
-    "express": "^4.13.3",
     "lodash": "^3.10.1",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
-    "react-router": "^1.0.0",
+    "react-router": "^1.0.3",
     "redux": "^3.0.5",
-    "redux-flux-store": "^0.2.1",
-    "redux-logger": "^2.0.4",
+    "redux-flux-store": "^0.2.4",
     "redux-promise": "^0.5.0",
     "redux-thunk": "^1.0.0"
   },
   "devDependencies": {
+    "express": "^4.13.3",
+    "redux-logger": "^2.0.4",
     "autoprefixer": "^6.1.0",
     "babel-core": "^6.2.1",
     "babel-eslint": "^4.1.5",
@@ -45,7 +45,6 @@
     "eslint": "^1.10.1",
     "eslint-config-airbnb": "^1.0.0",
     "eslint-plugin-react": "^3.10.0",
-    "history": "^1.13.1",
     "postcss-color-rgba-fallback": "^2.0.0",
     "postcss-cssnext": "^2.4.0",
     "postcss-focus": "^1.0.0",
