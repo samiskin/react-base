@@ -1,8 +1,6 @@
 
 import React from 'react';
-import Button from 'Button.jsx';
 import Store from 'Store';
-import css from './styles/App.css';
 
 export default class App extends React.Component {
 
@@ -23,7 +21,7 @@ export default class App extends React.Component {
 
     return (
       <div>
-        <div className={css.text}> Hello World <Button /></div>
+        <div> Hello World </div>
         {DevTools}
       </div>
     );

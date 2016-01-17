@@ -1,12 +1,9 @@
-import { compose, createStore, applyMiddleware } from 'redux';
 import createLogger from 'redux-logger';
-import thunk from 'redux-thunk';
-import { fluxEnhancer } from 'redux-flux-store';
-import TextStore from 'stores/TextStore';
-import { createElement } from 'react';
 import shallowEqual from 'utils/shallowEqual';
-// import {devTools} from 'redux-devtools';
-
+import thunk from 'redux-thunk';
+import { compose, createStore, applyMiddleware } from 'redux';
+import { createElement } from 'react';
+import { fluxEnhancer } from 'redux-flux-store';
 
 let logger = createLogger({
   level: 'info',
@@ -15,7 +12,7 @@ let logger = createLogger({
 
 let store = compose(
   fluxEnhancer({
-    text: TextStore
+
   }),
   applyMiddleware(thunk, logger),
   (() => __DEV__ ? require('DevTools.jsx').default.instrument() : (p) => p)()
