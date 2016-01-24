@@ -1,6 +1,8 @@
 
 import React from 'react';
 import Store from 'Store';
+import Main from 'Main.jsx';
+import css from './styles/App.css';
 
 export default class App extends React.Component {
 
@@ -20,8 +22,8 @@ export default class App extends React.Component {
     }
 
     return (
-      <div>
-        <div> Hello World </div>
+      <div className={css.app}>
+        <Main/>
         {DevTools}
       </div>
     );
