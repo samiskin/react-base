@@ -1,25 +1,18 @@
 import createLogger from 'redux-logger';
 import thunk from 'redux-thunk';
 import { compose, createStore, applyMiddleware } from 'redux';
-import { createElement } from 'react';
-import { fluxEnhancer } from 'redux-flux-store';
 
-let logger = createLogger({
+const logger = createLogger({
   level: 'info',
-  duration: true
+  duration: true,
 });
 
-let store = compose(
-  fluxEnhancer({
-
-  }),
+const store = compose(
   applyMiddleware(thunk, logger),
-  (() => __DEV__ ? require('DevTools.jsx').default.instrument() : (p) => p)()
-)(createStore)();
+  (() => (__DEV__ ? require('dev-tools').default.instrument() : (p) => p))() //eslint-disable-line
+)(createStore)((s = {}) => s);
 
 global['__redux_store__'] = store;
 
 export default store;
-
 export { connect } from 'react-redux';
-

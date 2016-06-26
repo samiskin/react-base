@@ -1,20 +1,19 @@
-var webpack = require('webpack')
-var baseConfig = require('./webpack.config.base')
-
-var config = Object.create(baseConfig);
-
+const webpack = require('webpack');
+const baseConfig = require('./webpack.config.base');
+const config = Object.create(baseConfig);
 
 config.plugins.push(
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'),
-      '__DEV__': false
+      __DEV__: false,
     }),
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
         screw_ie8: true,
-        warnings: false
-    }})
+        warnings: false,
+      },
+    })
 );
 
 module.exports = config;

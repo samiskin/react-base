@@ -1,14 +1,12 @@
-'use strict'
+const webpack = require('webpack');
+const baseConfig = require('./webpack.config.base');
 
-var webpack = require('webpack')
-var baseConfig = require('./webpack.config.base')
-
-var config = Object.create(baseConfig);
+const config = Object.create(baseConfig);
 
 config.entry = [
   'babel-polyfill',
   'webpack-hot-middleware/client',
-  './src/app'
+  './src/app-mounter',
 ];
 
 config.devtool = 'cheap-module-eval-source-map';
@@ -18,8 +16,8 @@ config.plugins.push(
   new webpack.optimize.OccurenceOrderPlugin(),
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify('development'),
-    '__DEV__': true
+    __DEV__: true,
   })
 );
 
-module.exports = config
+module.exports = config;
